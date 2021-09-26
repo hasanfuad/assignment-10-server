@@ -18,10 +18,27 @@ const client = new MongoClient(uri, {
 });
 client.connect((err) => {
   const productsCollection = client.db("foodBazar").collection("products");
+
   
-  app.post("/addProduct", (req, res) => {
+  
+  app.post("/addProduct", (req, res)=>{
       const newProduct = req.body;
       console.log(newProduct);
+      productsCollection.insertOne(newProduct);
+  });
+
+  app.get("/products", (req,res)=>{
+    productsCollection.find({})
+    .toArray((err, document)=>{
+      res.send(document);
+    })
+  })
+
+  app.get("/product/:key", (req, res)=>{
+    productsCollection.find({key: req.params.key})
+    .toArray((err, document)=>{
+      res.send(document[0]);
+    })
   })
   
 });
