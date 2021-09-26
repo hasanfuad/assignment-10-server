@@ -3,7 +3,7 @@ const { MongoClient } = require("mongodb");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const port = 5000;
+const port = 5000 ;
 
 require("dotenv").config();
 
@@ -47,6 +47,4 @@ app.get("/", (req, res) => {
   res.send("Hello Fuad Welcome!");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+app.listen(process.env.PORT || port);
